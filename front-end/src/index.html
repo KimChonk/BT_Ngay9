@@ -16,10 +16,9 @@
                 <p>Chào mừng bạn trở lại!</p>
             </div>
             
-            <form class="login-form" id="loginForm">
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" name="email" placeholder="Email hoặc tên đăng nhập" required>
+            <form class="login-form" id="loginForm">                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="email" name="email" placeholder="Username" required>
                 </div>
                 
                 <div class="input-group">
@@ -52,9 +51,18 @@
             <div class="shape shape2"></div>
             <div class="shape shape3"></div>
         </div>
-    </div>
-    
+    </div>    <script src="assets/js/authManager.js"></script>
     <script src="components/LoginForm.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script>
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            AuthManager.redirectIfAuthenticated();
+            
+            // Initialize login form
+            window.loginFormInitialized = true;
+            const loginForm = new LoginForm('loginForm');
+        });
+    </script>
 </body>
 </html>

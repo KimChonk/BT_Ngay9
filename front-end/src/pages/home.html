@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Home</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .home-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .home-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .home-header {
+            margin-bottom: 30px;
+        }
+        
+        .home-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .home-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .demo-info {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <div class="home-content">
+            <div class="home-header">
+                <i class="fas fa-home" style="font-size: 3rem; color: #667eea; margin-bottom: 20px;"></i>
+                <h1>Chào mừng!</h1>
+                <p>Bạn đã đăng nhập thành công</p>
+            </div>
+            
+            <div class="user-info">
+                <h3>Thông tin người dùng</h3>
+                <p><strong>Username:</strong> <span id="currentUser"></span></p>
+                <p><strong>Trạng thái:</strong> <span id="loginStatus"></span></p>
+            </div>
+            
+            <div class="demo-info">
+                <h4>🎯 Tài khoản demo có sẵn:</h4>
+                <p><strong>Username:</strong> admin | <strong>Password:</strong> 123456</p>
+                <p><strong>Username:</strong> user | <strong>Password:</strong> password</p>
+                <p><strong>Username:</strong> demo | <strong>Password:</strong> demo123</p>
+            </div>
+            
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Đăng xuất
+            </button>
+        </div>
+    </div>
+
+    <script src="../assets/js/authManager.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!AuthManager.requireAuth()) {
+                return; // Will redirect to login
+            }
+            
+            // Display user info
+            const currentUser = AuthManager.getCurrentUser();
+            const isRemembered = localStorage.getItem('rememberedLogin') === 'true';
+            
+            document.getElementById('currentUser').textContent = currentUser || 'Unknown';
+            document.getElementById('loginStatus').textContent = isRemembered ? 
+                'Đăng nhập được ghi nhớ' : 'Đăng nhập phiên hiện tại';
+        });
+        
+        function logout() {
+            AuthManager.logout();
+        }
+    </script>
+</body>
+</html>
