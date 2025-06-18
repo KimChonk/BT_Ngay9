@@ -368,21 +368,177 @@ body {
     }
 }
 
-/* Loading animation */
+/* Registration form specific styles */
+.register-form .input-group {
+    margin-bottom: 18px;
+}
+
+.register-form .form-options {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.register-form .remember-me {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.register-form .remember-me a {
+    color: #667eea;
+    text-decoration: underline;
+}
+
+/* Loading state for buttons */
 .login-btn.loading {
     pointer-events: none;
     opacity: 0.8;
+    position: relative;
 }
 
 .login-btn.loading::after {
     content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 20px;
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
+    border-top-color: white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-left: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Notification styles improvements */
+.notification {
+    max-width: 400px;
+    word-wrap: break-word;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Error message styling improvements */
+.error-message {
+    display: block;
+    margin-top: 5px !important;
+    margin-left: 45px !important;
+    font-size: 12px !important;
+    color: #e74c3c !important;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error handling styles */
+.input-group input.error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1) !important;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.error-message::before {
+    content: "⚠";
+    font-size: 10px;
+}
+
+/* Success state */
+.input-group input.success {
+    border-color: #27ae60 !important;
+    box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.1) !important;
+}
+
+/* Message styles for forms */
+.message {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease-out;
+}
+
+.message-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #b8daff;
+}
+
+.message-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+/* Additional animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Loading states */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn-loading .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
 }
 
 @keyframes spin {
@@ -390,34 +546,110 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Error message styles */
-.error-message {
+/* Form validation indicators */
+.input-group.has-validation {
+    position: relative;
+}
+
+.input-group.has-validation::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.input-group.has-validation.valid::after {
+    content: "✓";
+    color: #27ae60;
+    opacity: 1;
+    font-weight: bold;
+}
+
+.input-group.has-validation.invalid::after {
+    content: "✗";
     color: #e74c3c;
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* Validation label styles */
+.error-message.hidden {
+    display: none !important;
+}
+
+#validation-empty,
+#validation-unicode-username,
+#validation-unicode-password,
+#validation-login-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #e74c3c;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideDown 0.3s ease;
+}
+
+#validation-empty::before,
+#validation-unicode-username::before,
+#validation-unicode-password::before,
+#validation-login-error::before {
+    content: "⚠";
     font-size: 12px;
-    margin-top: 5px;
-    margin-left: 5px;
+    color: #e74c3c;
 }
 
-.input-group.error input {
-    border-color: #e74c3c;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 50px;
+    }
 }
 
-.success-message {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 14px;
+/* Enhanced input error states */
+input[style*="border-color: rgb(231, 76, 60)"] {
+    border-width: 2px !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+    animation: shake 0.3s ease;
 }
 
-.error-alert {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 14px;
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Responsive improvements for register form */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+    
+    .register-form .input-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-options {
+        font-size: 13px;
+    }
+    
+    .remember-me {
+        font-size: 12px !important;
+    }
 }
